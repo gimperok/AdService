@@ -13,6 +13,7 @@ namespace AdService.Services.Repository.Implementations
             db = _db;
         }
 
+        
         public User GetByGuid(Guid id)
         {
             User? userFromDb = new();
@@ -32,12 +33,24 @@ namespace AdService.Services.Repository.Implementations
             return userFromDb ?? new User();
         }
 
+
         public List<User> GetList()
         {
             List<User>? allUsersFromDb = new();
             try
             {
                 allUsersFromDb = db.Users.ToList();
+
+                //var allAds = db.Adverts.ToList();
+
+                //foreach (var user in allUsersFromDb)
+                //{
+                //    foreach (var ad in allAds)
+                //    {
+                //        if(user.Id == ad.UserId && !user.Adverts.Contains(ad))
+                //        user.Adverts.Add(ad);
+                //    }
+                //}
             }
             catch (Exception e)
             {

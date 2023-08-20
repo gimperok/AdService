@@ -1,6 +1,7 @@
 ﻿using AdService.DBContext;
 using AdService.Models;
 using AdService.Services.Repository.Interfaces;
+using System.Linq;
 
 namespace AdService.Services.Repository.Implementations
 {
@@ -13,6 +14,7 @@ namespace AdService.Services.Repository.Implementations
         {
             db = _db;
         }
+
 
         public Advert GetByGuid(Guid id)
         {
@@ -32,6 +34,7 @@ namespace AdService.Services.Repository.Implementations
             }
             return advertFromDb ?? new Advert();
         }
+
 
         public List<Advert> GetList()
         {
@@ -54,15 +57,21 @@ namespace AdService.Services.Repository.Implementations
         {
             if (db == null) return Guid.Empty;
 
-            //Эту проверку на количество опубликованных пользователем объявлений
+            //Такого рода проверку на количество опубликованных пользователем объявлений
             //по-хорошему нужно проводить на клиенте в Web приложении,
-            //чтобы исключить лишний запрос к сервису, в случае достижения пользователем
+            //чтобы исключить лишние запросы к сервису, в случае достижения пользователем
             //установленного для него лимита публикации объявлений;
-            if (db.Adverts.Where(adv => adv.UserGuid == entity.UserGuid).Count() > 5)
+            if (db.Adverts.Where(adv => adv.UserId == entity.UserId).Count() >= AppSettings.GetUserAdvertCount)
+            {
+                Console.WriteLine($"Пользователь '{entity.UserId}' " +
+                                  $"достиг лимита количества обьявлений ({AppSettings.GetUserAdvertCount}).");
                 return Guid.Empty;
+            }
 
             try
             {
+                entity.Number = (db.Adverts?.Count() > 0) ? db.Adverts.Max(ad => ad.Number) + 1 : 1;
+
                 db.Adverts.Add(entity);
                 db.SaveChanges();
 
@@ -103,7 +112,7 @@ namespace AdService.Services.Repository.Implementations
                 advertDb.Rate = entity.Rate;
                 advertDb.DateCreate = entity.DateCreate;
                 advertDb.DateExp = entity.DateExp;
-                advertDb.UserGuid = entity.UserGuid;
+                advertDb.UserId = entity.UserId;
 
                 db.Adverts.Update(advertDb);
                 db.SaveChanges();

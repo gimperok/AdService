@@ -13,7 +13,6 @@ namespace AdService.Models
 
         public string? Text { get; set; }
 
-
         public byte[]? Picture { get; set; }
 
         public int Rate { get; set; }
@@ -23,6 +22,5 @@ namespace AdService.Models
         public DateTime DateExp { get; set; }
 
         public Guid UserId { get; set; }
-        //public User User { get; set; }
     }
 }

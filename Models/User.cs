@@ -12,6 +12,6 @@ namespace AdService.Models
 
         public bool IsAdmin { get; set; }
 
-        //public List<Advert> Adverts { get; set; } = new();
+        public List<Advert> Adverts { get; set; } = new();
     }
 }

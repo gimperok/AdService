@@ -23,6 +23,7 @@ namespace AdService.Services.Repository.Implementations
             try
             {
                 userFromDb = db.Users.FirstOrDefault(u => u.Id == id);
+                var adsForUser = db.Adverts.Where(ad => ad.UserId == id).ToList();
             }
             catch (Exception e)
             {
@@ -40,17 +41,7 @@ namespace AdService.Services.Repository.Implementations
             try
             {
                 allUsersFromDb = db.Users.ToList();
-
-                //var allAds = db.Adverts.ToList();
-
-                //foreach (var user in allUsersFromDb)
-                //{
-                //    foreach (var ad in allAds)
-                //    {
-                //        if(user.Id == ad.UserId && !user.Adverts.Contains(ad))
-                //        user.Adverts.Add(ad);
-                //    }
-                //}
+                var allAdsFromDb = db.Adverts.ToList();
             }
             catch (Exception e)
             {

@@ -2,10 +2,11 @@
 using AdJson.Models;
 using AdService.Services.Repository.Interfaces;
 using System.Linq;
+using System.IO;
 
 namespace AdService.Services.Repository.Implementations
 {
-    public class AdvertRepository : IBaseRepository<Advert>
+    public class AdvertRepository : IAdvertRepository<Advert>
     {
 
         private readonly ApplicationContext db;
@@ -53,7 +54,7 @@ namespace AdService.Services.Repository.Implementations
         }
 
 
-        public Guid Add(Advert entity)
+        public async Task<Guid> Add(Advert entity, IFormFile? uploadedFile = null)
         {
             if (db == null) return Guid.Empty;
 
@@ -61,16 +62,28 @@ namespace AdService.Services.Repository.Implementations
             //по-хорошему нужно проводить на клиенте в Web приложении,
             //чтобы исключить лишние запросы к сервису, в случае достижения пользователем
             //установленного для него лимита публикации объявлений;
-            if (db.Adverts.Where(adv => adv.UserId == entity.UserId).Count() >= AppSettings.GetUserAdvertCount)
+            if (db.Adverts.Where(adv => adv.UserId == entity.UserId).Count() >= AppSettings.GetMaxUserAdvertCount)
             {
                 Console.WriteLine($"Пользователь '{entity.UserId}' " +
-                                  $"достиг лимита количества обьявлений ({AppSettings.GetUserAdvertCount}).");
+                                  $"достиг лимита количества обьявлений ({AppSettings.GetMaxUserAdvertCount}).");
                 return Guid.Empty;
             }
 
             try
             {
                 entity.Number = (db.Adverts?.Count() > 0) ? db.Adverts.Max(ad => ad.Number) + 1 : 1;
+
+                if(uploadedFile != null && uploadedFile.Length <= AppSettings.GetMaxAdvertsPhotoWeight)
+                {
+                    string pathForPicture = $"{AppSettings.GetPathForAdvertsPhoto}{entity.Number}.JPG";
+
+                    using (var fileStream = new FileStream(pathForPicture, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+
+                    entity.Picture = pathForPicture;
+                }
 
                 db.Adverts.Add(entity);
                 db.SaveChanges();

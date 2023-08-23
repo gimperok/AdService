@@ -8,9 +8,9 @@ namespace AdService.Controllers
     [ApiController]
     public class AdvertController : ControllerBase
     {
-        private readonly IBaseRepository<Advert> advertRepository;
+        private readonly IAdvertRepository<Advert> advertRepository;
 
-        public AdvertController(IBaseRepository<Advert> _repository)
+        public AdvertController(IAdvertRepository<Advert> _repository)
         {
             advertRepository = _repository;
         }
@@ -41,11 +41,11 @@ namespace AdService.Controllers
         /// </summary>
         /// <param name="advert">Обьект объявления</param>
         [HttpPost]
-        public Guid AddAdvert(Advert advert)
+        public async Task<Guid> AddAdvert(Advert advert, IFormFile uploadedFile)
         {
             if (!ModelState.IsValid)
                 return Guid.Empty;
-            return advertRepository.Add(advert);
+            return await advertRepository.Add(advert, uploadedFile);
         }
 
         /// <summary>

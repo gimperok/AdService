@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(AppSettings.ConnectionString));
 
-builder.Services.AddScoped<IBaseRepository<Advert>, AdvertRepository>();
+builder.Services.AddScoped<IAdvertRepository<Advert>, AdvertRepository>();
 builder.Services.AddScoped<IBaseRepository<User>, UserRepository>();
 
 

@@ -21,7 +21,11 @@
         public static T GetValueInApiSettingSection<T>(string key)
             => configuration.GetSection("ApiSetting").GetValue<T>(key);
 
-            public static int GetUserAdvertCount
-            => GetValueInApiSettingSection<int>("UserAdvertCount");
+            public static int GetMaxUserAdvertCount
+            => GetValueInApiSettingSection<int>("MaxUserAdvertCount");
+            public static int GetMaxAdvertsPhotoWeight
+            => GetValueInApiSettingSection<int>("MaxAdvertsPhotoWeight");
+            public static string GetPathForAdvertsPhoto
+            => GetValueInApiSettingSection<string>("PathForAdvertsPicures");
     }
 }

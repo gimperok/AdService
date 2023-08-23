@@ -1,5 +1,5 @@
 ﻿using AdService.DBContext;
-using AdService.Models;
+using AdJson.Models;
 using AdService.Services.Repository.Interfaces;
 
 namespace AdService.Services.Repository.Implementations

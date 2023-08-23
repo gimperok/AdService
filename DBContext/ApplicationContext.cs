@@ -1,4 +1,4 @@
-﻿using AdService.Models;
+﻿using AdJson.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;

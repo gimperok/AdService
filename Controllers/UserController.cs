@@ -1,4 +1,4 @@
-﻿using AdService.Models;
+﻿using AdJson.Models;
 using AdService.Services.Repository.Implementations;
 using AdService.Services.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;

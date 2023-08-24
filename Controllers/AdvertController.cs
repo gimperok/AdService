@@ -1,4 +1,5 @@
 ﻿using AdJson.Models;
+using AdService.Services.Helpers;
 using AdService.Services.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,22 @@ namespace AdService.Controllers
         }
 
         /// <summary>
+        /// Список объявлений выгружаемый по запросу с учетом входящих параметров
+        /// </summary>
+        /// <typeparam name="T">Тип свойства для сортировки</typeparam>
+        /// <param name="sortParam">Значение свойства для сортировки</param>
+        /// <param name="isASC">Тип сортировки прямая/обратная. Если не указан, то прямая</param>
+        /// <param name="pagenumber">Номер страницы. Если не указан, то 1</param>
+        /// <param name="onPageCount">Количество выгружаемых объявлений. Если не указан то 10</param>
+        /// <returns></returns>
+        [HttpGet]
+        public List<Advert> GetAdvertsListByParams(string propertyName, bool isASC = true, int pagenumber = 1, int onPageCount = DisplayConst.MaxLenghtAdvertsListOnPage)
+        {
+            return advertRepository.GetAdvertsListByParams(propertyName, isASC, pagenumber, onPageCount);
+        }
+
+
+        /// <summary>
         /// Получить список объявлений
         /// </summary>
         /// <returns>Список объявлений</returns>
@@ -35,6 +52,21 @@ namespace AdService.Controllers
         {
             return advertRepository.GetList();
         }
+
+
+        /// <summary>
+        /// Получить изображение объявления зная путь к обложке
+        /// </summary>
+        /// <param name="pathToPicture">Путь к файлу обложки</param>
+        /// <param name="width">Необходимая ширина обложки</param>
+        /// <param name="height">Необходимая высота обложки</param>
+        /// <returns>Обложка объявления в формате массив байтов</returns>
+        [HttpGet]
+        public byte[] GetPictureForAdvertByPath(string pathToPicture, int width, int height)
+        {
+            return advertRepository.GetPictureForAdvertByPath(pathToPicture, width, height);
+        }
+
 
         /// <summary>
         /// Добавить объявление
@@ -48,6 +80,7 @@ namespace AdService.Controllers
             return await advertRepository.Add(advert, uploadedFile);
         }
 
+
         /// <summary>
         /// Изменить обьект объявления
         /// </summary>
@@ -59,6 +92,7 @@ namespace AdService.Controllers
                 return false;
             return advertRepository.Edit(advert);
         }
+
 
         /// <summary>
         /// Удалить объявление по его Guid

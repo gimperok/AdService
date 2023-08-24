@@ -1,8 +1,9 @@
 ﻿using AdService.DBContext;
 using AdJson.Models;
 using AdService.Services.Repository.Interfaces;
-using System.Linq;
-using System.IO;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using AdService.Services.Helpers;
 
 namespace AdService.Services.Repository.Implementations
 {
@@ -26,6 +27,7 @@ namespace AdService.Services.Repository.Implementations
             try
             {
                 advertFromDb = db.Adverts.FirstOrDefault(u => u.Id == id);
+
             }
             catch (Exception e)
             {
@@ -36,6 +38,105 @@ namespace AdService.Services.Repository.Implementations
             return advertFromDb ?? new Advert();
         }
 
+        public byte[] GetPictureForAdvertByPath(string pathToPicture, int width, int height)
+        {
+            if(string.IsNullOrEmpty(pathToPicture))
+                return new byte[] { };
+
+            byte[]? pictureForAdvert = new byte[] { };
+
+            try
+            {
+                Image originalPicture = Image.FromFile(pathToPicture);
+
+                if (originalPicture == null)
+                    return new byte[] { };
+                else
+                {
+                    Image resizePicture = new Bitmap(width, height);
+
+                    using (Graphics g = Graphics.FromImage((Image)resizePicture))
+                    {
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.DrawImage(originalPicture, 0, 0, width, height);
+                        g.Dispose();
+                    }
+
+                    using (var ms = new MemoryStream())
+                    {
+                        resizePicture.Save(ms, resizePicture.RawFormat);
+                        pictureForAdvert = ms.ToArray();
+                    }
+                }                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка получения файла обложки по адресу: '{pathToPicture}'.\n" +
+                                  $"Место: {nameof(AdvertRepository)}/{nameof(GetPictureForAdvertByPath)} \n" +
+                                  $"Error text:{e.Message}");
+            }
+            return pictureForAdvert ?? new byte[] { };
+        }
+
+        public List<Advert> GetAdvertsListByParams(string propertyName, bool isASC = true, int pagenumber = 1, int onPageCount = DisplayConst.MaxLenghtAdvertsListOnPage)
+        {
+            List<Advert>? allAdvertsFromDb = new();
+            List<Advert> advertsForShow = new();
+
+            if (db == null) return allAdvertsFromDb;
+
+            try
+            {
+                if(db.Adverts.Count() > 0)
+                {
+                    switch (propertyName)
+                    {
+                        case nameof(Advert.Number):
+                            if (isASC)
+                                allAdvertsFromDb = db.Adverts.OrderBy(ad => ad.Number).ToList();
+                            else
+                                allAdvertsFromDb = db.Adverts.OrderByDescending(ad => ad.Number).ToList();
+                            break;
+
+                        case nameof(Advert.Rate):
+                            if (isASC)
+                                allAdvertsFromDb = db.Adverts.OrderBy(ad => ad.Rate).ThenBy(ad => ad.DateCreate).ToList();
+                            else
+                                allAdvertsFromDb = db.Adverts.OrderByDescending(ad => ad.Rate).ThenBy(ad => ad.DateCreate).ToList();
+                            break;
+
+                        case nameof(Advert.DateCreate):
+                            if (isASC)
+                                allAdvertsFromDb = db.Adverts.OrderBy(ad => ad.DateCreate).ToList();
+                            else
+                                allAdvertsFromDb = db.Adverts.OrderByDescending(ad => ad.DateCreate).ToList();
+                            break;
+
+                        case nameof(Advert.DateExp):
+                            if (isASC)
+                                allAdvertsFromDb = db.Adverts.OrderBy(ad => ad.DateExp).ToList();
+                            else
+                                allAdvertsFromDb = db.Adverts.OrderByDescending(ad => ad.DateExp).ToList();
+                            break;
+                    }
+                
+                    int firstElIndex = pagenumber == 1 ? 0 : pagenumber - 1 * onPageCount;
+                    int countFromFirstIndex = (pagenumber * onPageCount < allAdvertsFromDb.Count) ? 
+                                    onPageCount :
+                                    (pagenumber == 1)? allAdvertsFromDb.Count : allAdvertsFromDb.Count - (pagenumber-1)*onPageCount + 1;
+
+                    advertsForShow.AddRange(allAdvertsFromDb.GetRange(firstElIndex, countFromFirstIndex));
+                }
+                return advertsForShow;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка получения списка Advert'ов из бд.\n" +
+                                  $"Место: {nameof(AdvertRepository)}/{nameof(GetAdvertsListByParams)} \n" +
+                                  $"Error text:{e.Message}");
+            }
+            return allAdvertsFromDb is null ? new() : allAdvertsFromDb;
+        }
 
         public List<Advert> GetList()
         {

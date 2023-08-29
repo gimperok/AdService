@@ -1,4 +1,4 @@
-﻿namespace AdService
+﻿namespace AdApi
 {
     public static class AppSettings
     {
@@ -18,14 +18,14 @@
             }
         }
 
-        public static T GetValueInApiSettingSection<T>(string key)
-            => configuration.GetSection("ApiSetting").GetValue<T>(key);
+        //public static T GetValueInApiSettingSection<T>(string key)
+        //    => configuration.GetSection("ApiSetting").GetValue<T>(key);
 
-            public static int GetMaxUserAdvertCount
-            => GetValueInApiSettingSection<int>("MaxUserAdvertCount");
-            public static int GetMaxAdvertsPhotoWeight
-            => GetValueInApiSettingSection<int>("MaxAdvertsPhotoWeight");
-            public static string GetPathForAdvertsPhoto
-            => GetValueInApiSettingSection<string>("PathForAdvertsPicures");
+        //    public static int GetMaxUserAdvertCount
+        //    => GetValueInApiSettingSection<int>("MaxUserAdvertCount");
+        //    public static int GetMaxAdvertsPhotoWeight
+        //    => GetValueInApiSettingSection<int>("MaxAdvertsPhotoWeight");
+        //    public static string GetPathForAdvertsPhoto
+        //    => GetValueInApiSettingSection<string>("PathForAdvertsPicures");
     }
 }

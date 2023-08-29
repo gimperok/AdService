@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
 
-namespace AdService.DBContext
+namespace AdDBService.DBContext
 {
     public class ApplicationContext : DbContext
     {

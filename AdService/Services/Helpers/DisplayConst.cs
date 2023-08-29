@@ -1,6 +1,6 @@
 ﻿using System.Reflection.Metadata;
 
-namespace AdService.Services.Helpers
+namespace AdApi.Services.Helpers
 {
     public static class DisplayConst
     {   

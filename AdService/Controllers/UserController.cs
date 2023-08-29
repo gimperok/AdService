@@ -1,10 +1,8 @@
 ﻿using AdJson.Models;
-using AdService.Services.Repository.Implementations;
-using AdService.Services.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
+using AdDBService.Services.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AdService.Controllers
+namespace AdApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

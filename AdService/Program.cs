@@ -1,8 +1,8 @@
-using AdService;
-using AdService.DBContext;
+using AdApi;
+using AdDBService.DBContext;
 using AdJson.Models;
-using AdService.Services.Repository.Implementations;
-using AdService.Services.Repository.Interfaces;
+using AdDBService.Services.Repository.Implementations;
+using AdDBService.Services.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

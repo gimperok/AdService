@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>AdService</name>
+        <name>AdApi</name>
     </assembly>
     <members>
-        <member name="M:AdService.Controllers.AdvertController.GetAdvertByGuid(System.Guid)">
+        <member name="M:AdApi.Controllers.AdvertController.GetAdvertByGuid(System.Guid)">
             <summary>
             Получить объявление по его Guid
             </summary>
             <param name="id">Идентификатор объявления</param>
             <returns>Объект объявления</returns>
         </member>
-        <member name="M:AdService.Controllers.AdvertController.GetAdvertsListByParams(System.String,System.Boolean,System.Int32,System.Int32)">
+        <member name="M:AdApi.Controllers.AdvertController.GetAdvertsListByParams(System.String,System.Boolean,System.Int32,System.Int32)">
             <summary>
             Список объявлений выгружаемый по запросу с учетом входящих параметров
             </summary>
@@ -22,13 +22,13 @@
             <param name="onPageCount">Количество выгружаемых объявлений. Если не указан то 10</param>
             <returns></returns>
         </member>
-        <member name="M:AdService.Controllers.AdvertController.GetAdvertsList">
+        <member name="M:AdApi.Controllers.AdvertController.GetAdvertsList">
             <summary>
             Получить список объявлений
             </summary>
             <returns>Список объявлений</returns>
         </member>
-        <member name="M:AdService.Controllers.AdvertController.GetPictureForAdvertByPath(System.String,System.Int32,System.Int32)">
+        <member name="M:AdApi.Controllers.AdvertController.GetPictureForAdvertByPath(System.String,System.Int32,System.Int32)">
             <summary>
             Получить изображение объявления зная путь к обложке
             </summary>
@@ -37,56 +37,56 @@
             <param name="height">Необходимая высота обложки</param>
             <returns>Обложка объявления в формате массив байтов</returns>
         </member>
-        <member name="M:AdService.Controllers.AdvertController.AddAdvert(AdJson.Models.Advert,Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:AdApi.Controllers.AdvertController.AddAdvert(AdJson.Models.Advert,Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             Добавить объявление
             </summary>
             <param name="advert">Обьект объявления</param>
         </member>
-        <member name="M:AdService.Controllers.AdvertController.EditAdvert(AdJson.Models.Advert)">
+        <member name="M:AdApi.Controllers.AdvertController.EditAdvert(AdJson.Models.Advert)">
             <summary>
             Изменить обьект объявления
             </summary>
             <param name="advert">Обьект объявления</param>
         </member>
-        <member name="M:AdService.Controllers.AdvertController.DeleteAdvertByGuid(System.Guid)">
+        <member name="M:AdApi.Controllers.AdvertController.DeleteAdvertByGuid(System.Guid)">
             <summary>
             Удалить объявление по его Guid
             </summary>
             <param name="id">Идентификатор объявления</param>
         </member>
-        <member name="M:AdService.Controllers.UserController.GetUserByGuid(System.Guid)">
+        <member name="M:AdApi.Controllers.UserController.GetUserByGuid(System.Guid)">
             <summary>
             Получить пользователя по его Guid
             </summary>
             <param name="id">Идентификатор пользователя</param>
             <returns>Объект пользователя</returns>
         </member>
-        <member name="M:AdService.Controllers.UserController.GetUsersList">
+        <member name="M:AdApi.Controllers.UserController.GetUsersList">
             <summary>
             Получить список пользователей
             </summary>
             <returns>Список пользователей</returns>
         </member>
-        <member name="M:AdService.Controllers.UserController.AddUser(AdJson.Models.User)">
+        <member name="M:AdApi.Controllers.UserController.AddUser(AdJson.Models.User)">
             <summary>
             Добавить пользователя
             </summary>
             <param name="user">Обьект пользователя</param>
         </member>
-        <member name="M:AdService.Controllers.UserController.EditUser(AdJson.Models.User)">
+        <member name="M:AdApi.Controllers.UserController.EditUser(AdJson.Models.User)">
             <summary>
             Изменить обьект пользователя
             </summary>
             <param name="user">Обьект пользователя</param>
         </member>
-        <member name="M:AdService.Controllers.UserController.DeleteUserByGuid(System.Guid)">
+        <member name="M:AdApi.Controllers.UserController.DeleteUserByGuid(System.Guid)">
             <summary>
             Удалить пользователя по его Guid
             </summary>
             <param name="id">Идентификатор пользователя</param>
         </member>
-        <member name="F:AdService.Services.Helpers.DisplayConst.MaxLenghtAdvertsListOnPage">
+        <member name="F:AdApi.Services.Helpers.DisplayConst.MaxLenghtAdvertsListOnPage">
             <summary>
             Максимальная длинна списка объявлений выгружаемая по запросу
             </summary>

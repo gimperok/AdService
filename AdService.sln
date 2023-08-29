@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdService", "AdService\AdService.csproj", "{9D8223E0-A8E4-4ADC-AD57-A50BFCBFA24E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdApi", "AdService\AdApi.csproj", "{9D8223E0-A8E4-4ADC-AD57-A50BFCBFA24E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdJson", "AdJson\AdJson.csproj", "{B7BA56A9-3BAD-4D4B-87D6-15DF0D1845D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdBDService", "AdBDService\AdBDService.csproj", "{5AD2D9BC-0E7B-407A-A8E9-A8FFDC1BDD15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B7BA56A9-3BAD-4D4B-87D6-15DF0D1845D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7BA56A9-3BAD-4D4B-87D6-15DF0D1845D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7BA56A9-3BAD-4D4B-87D6-15DF0D1845D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD2D9BC-0E7B-407A-A8E9-A8FFDC1BDD15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD2D9BC-0E7B-407A-A8E9-A8FFDC1BDD15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD2D9BC-0E7B-407A-A8E9-A8FFDC1BDD15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD2D9BC-0E7B-407A-A8E9-A8FFDC1BDD15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
